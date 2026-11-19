@@ -13,6 +13,7 @@ export default function useRetroAudio(volume: number) {
     engine.current = current
     window.addEventListener('click', unlock)
     window.addEventListener('keydown', unlock)
+    if (window.retroGlowDesktop) unlock()
     return () => {
       window.removeEventListener('click', unlock)
       window.removeEventListener('keydown', unlock)

@@ -31,6 +31,36 @@ export default function SettingsMenu({
   const trigger = useRef<HTMLButtonElement>(null)
   const panelId = useId()
   const presetName = useId()
+  const desktop = window.retroGlowDesktop
+  const [launchAtStartup, setLaunchAtStartup] = useState<boolean | null>(null)
+  const [updatingStartup, setUpdatingStartup] = useState(false)
+  const [startupError, setStartupError] = useState(false)
+
+  useEffect(() => {
+    if (!open || !desktop) return
+    let active = true
+    void desktop.getLaunchAtStartup().then((enabled) => {
+      if (active) setLaunchAtStartup(enabled)
+    }).catch(() => {
+      if (active) setStartupError(true)
+    })
+    return () => { active = false }
+  }, [desktop, open])
+
+  async function changeStartup(enabled: boolean) {
+    if (!desktop) return
+    setUpdatingStartup(true)
+    setStartupError(false)
+    try {
+      const saved = await desktop.setLaunchAtStartup(enabled)
+      setLaunchAtStartup(saved)
+      setStartupError(saved !== enabled)
+    } catch {
+      setStartupError(true)
+    } finally {
+      setUpdatingStartup(false)
+    }
+  }
 
   const close = useCallback(() => {
     onStopPreview()
@@ -118,8 +148,21 @@ export default function SettingsMenu({
                   ? 'برای فعال‌کردن صدا، با برنامه تعامل کنید یا دکمهٔ پیش‌شنیدن را بزنید.'
                   : 'این صدا برای زنگ هشدار و شمارش معکوس استفاده می‌شود.'}
           </p>
-          <p className="sound-note">هشدارها فقط تا زمانی کار می‌کنند که برنامه باز باشد.</p>
+          {!desktop && <p className="sound-note">هشدارها فقط تا زمانی کار می‌کنند که برنامه باز باشد.</p>}
         </fieldset>
+        {(launchAtStartup !== null || startupError) && (
+          <fieldset className="settings-section sound-section">
+            <legend>ویندوز</legend>
+            {launchAtStartup !== null && (
+              <label className="sound-choice">
+                <input type="checkbox" checked={launchAtStartup} disabled={updatingStartup}
+                  onChange={(event) => void changeStartup(event.currentTarget.checked)} />
+                <span>اجرا در هنگام روشن شدن ویندوز</span>
+              </label>
+            )}
+            {startupError && <p className="sound-note" role="status">دسترسی به تنظیم اجرای خودکار ممکن نشد.</p>}
+          </fieldset>
+        )}
       </div>
     </div>
   )

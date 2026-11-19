@@ -1,75 +1,19 @@
-# React + TypeScript + Vite
+# RetroGlow
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+RetroGlow is a Persian-language clock, countdown timer, and alarm. It runs in the browser and as a Windows desktop app.
 
-Currently, two official plugins are available:
+Use Node.js 22.12 or newer. Install dependencies with `npm ci`, then choose a development command:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+| Command | What it runs |
+| --- | --- |
+| `npm run dev` | Starts Vite and opens Electron. You can also open the Vite URL in your browser. |
+| `npm run dev:web` | Starts only Vite at `http://127.0.0.1:5173/`. |
+| `npm run dev:electron` | Opens Electron after a separately started Vite server is ready. |
 
-## React Compiler
+Use `npm run build` to build the web app into `dist/`. Use `npm run lint` to check the web and Electron code.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+To produce the Windows x64 installer, run `npm run dist:win` on Windows. The installer is written to `release/` as `RetroGlow Setup <version>.exe`. It installs for the current user, lets you choose the installation folder, and creates desktop and Start menu shortcuts. The installed app loads the bundled web build and uses the Start menu shortcut for Windows notification registration.
 
-## Expanding the ESLint configuration
+Closing the desktop window sends RetroGlow to the system tray. Use **نمایش RetroGlow** to bring it back or **خروج کامل** to quit. Alarms and countdowns can sound while RetroGlow is in the tray, and an alert that fires there shows the window and posts a Windows notification. Alerts cannot fire while RetroGlow is fully quit. If you enable **اجرا در هنگام روشن شدن ویندوز** in the installed app, RetroGlow starts in the tray when you sign in to Windows. This setting is off by default.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
-
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
+To check the installed app on Windows, enable an alarm for the next minute and close the window. Check that it sounds, the taskbar button flashes, and clicking the notification focuses the window. Launch RetroGlow again to check that it focuses the existing instance. Then choose **خروج کامل** and verify the tray icon disappears.

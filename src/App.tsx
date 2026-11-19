@@ -15,6 +15,13 @@ import useAlarm from './hooks/useAlarm'
 
 const tabKey = 'retroglow.tab'
 const countdownAlertMs = 15_000
+
+function reportDesktopAlert(kind: 'alarm' | 'timer') {
+  void window.retroGlowDesktop?.alertFired(kind).catch((error) => {
+    console.error('Could not show the desktop alert:', error)
+  })
+}
+
 const tabs: readonly TabItem[] = [
   { id: 'clock', label: 'ساعت' },
   { id: 'timer', label: 'شمارش معکوس' },
@@ -42,6 +49,7 @@ export default function App() {
   const { playAlert, stopAlert, unlock, status: soundStatus } = useRetroAudio(sound.volume)
   const ringAlarm = useCallback(() => {
     playAlert('alarm', { preset: selectedPreset.current })
+    reportDesktopAlert('alarm')
   }, [playAlert])
   const stopAlarm = useCallback(() => stopAlert('alarm'), [stopAlert])
   const alarm = useAlarm(ringAlarm, stopAlarm)
@@ -94,6 +102,7 @@ export default function App() {
       onEnd: () => setTimerAlert(false),
     })
     setTimerAlert(true)
+    reportDesktopAlert('timer')
     window.clearTimeout(flashTimeout.current)
     setFlash(true)
     flashTimeout.current = window.setTimeout(() => setFlash(false), 900)
@@ -152,6 +161,7 @@ export default function App() {
 
       <footer className="site-footer flex flex-wrap items-center justify-between gap-x-5 gap-y-2">
         <span className="flex items-center gap-2"><Icon name="globe" /> زمان و تاریخ بر اساس دستگاه شما</span>
+        {window.retroGlowDesktop && <span>هشدارها فقط تا وقتی RetroGlow در پنجره یا کنار ساعت ویندوز در حال اجراست، فعال‌اند.</span>}
         <span className="footer-decoration flex items-center gap-1.5" aria-hidden="true"><i /><i /><i /></span>
       </footer>
       {(timerAlert || alarm.ringing) && (
