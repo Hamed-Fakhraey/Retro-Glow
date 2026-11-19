@@ -1,19 +1,60 @@
-# RetroGlow
+<img width="1792" height="1024" alt="z7zuIQE0pBd9Y_IYVGwHJSnib9A-udaRqdJzSB2px6Dpci9afQ" src="https://github.com/user-attachments/assets/632fbb24-b05b-461f-a16c-df2b1054ac9f" />
 
-RetroGlow is a Persian-language clock, countdown timer, and alarm. It runs in the browser and as a Windows desktop app.
 
-Use Node.js 22.12 or newer. Install dependencies with `npm ci`, then choose a development command:
+# 🌟 RetroGlow (ایستگاه زمان)
 
-| Command | What it runs |
-| --- | --- |
-| `npm run dev` | Starts Vite and opens Electron. You can also open the Vite URL in your browser. |
-| `npm run dev:web` | Starts only Vite at `http://127.0.0.1:5173/`. |
-| `npm run dev:electron` | Opens Electron after a separately started Vite server is ready. |
+> **RetroGlow** یک برنامه ساعت دیجیتال پیکسلی، شمارش معکوس و زنگ هشدار است. این برنامه هم به صورت وب‌سایت در مرورگر و هم به عنوان اپلیکیشن دسکتاپ ویندوز اجرا می‌شود! 🚀
 
-Use `npm run build` to build the web app into `dist/`. Use `npm run lint` to check the web and Electron code.
+---
 
-To produce the Windows x64 installer, run `npm run dist:win` on Windows. The installer is written to `release/` as `RetroGlow Setup <version>.exe`. It installs for the current user, lets you choose the installation folder, and creates desktop and Start menu shortcuts. The installed app loads the bundled web build and uses the Start menu shortcut for Windows notification registration.
+## 📸 تصاویر محیط برنامه
 
-Closing the desktop window sends RetroGlow to the system tray. Use **نمایش RetroGlow** to bring it back or **خروج کامل** to quit. Alarms and countdowns can sound while RetroGlow is in the tray, and an alert that fires there shows the window and posts a Windows notification. Alerts cannot fire while RetroGlow is fully quit. If you enable **اجرا در هنگام روشن شدن ویندوز** in the installed app, RetroGlow starts in the tray when you sign in to Windows. This setting is off by default.
+<p align="center">
+  <img src="retrogloW-readme-collage.png" alt="RetroGlow Showcase" width="100%">
+</p>
 
-To check the installed app on Windows, enable an alarm for the next minute and close the window. Check that it sounds, the taskbar button flashes, and clicking the notification focuses the window. Launch RetroGlow again to check that it focuses the existing instance. Then choose **خروج کامل** and verify the tray icon disappears.
+---
+
+## ✨ ویژگی‌های کلیدی
+
+* 🕒 **ساعت دیجیتال دقیق:** طراحی رترو و پیکسلی، نمایش زمان محلی به همراه تقویم شمسی و قمری 📅
+* ⏳ **شمارش معکوس پیشرفته:** دکمه‌های کنترلی پیکسلی، تنظیم دقیق ثانیه و دقیقه، و هشدار صوتی پایان زمان ⏱️
+* ⏰ **سیستم زنگ هشدار کامل:** انتخاب از میان ۵ صدای زنگ رترو و ایرانی با دکمه پیش‌نمایش 🎶
+* 🎨 **تغییر پوسته (Theme):** امکان تغییر تم بین **نئون تاریک**، **سبز کلاسیک رترو**، و سری **Assassin** (سرخ و طلایی/مشکی) 🌙
+* 🪟 **پشتیبانی از System Tray ویندوز:** بستن پنجره برنامه را به تری می‌برد تا زنگ‌ها و شمارش معکوس‌ها در پس‌زمینه فعال بمانند 🔔
+* 📦 **نصاب مستقل ویندوز:** فایل نصاب تمیز `.exe` ساخته شده با الکترون، همراه با ساخت خودکار میانبر روی دسکتاپ و استارت منو 🛠️
+
+---
+
+## 🛠️ راه‌اندازی برای توسعه
+
+مطمئن شوید که **Node.js نسخه 22.12** یا جدیدتر را نصب کرده‌اید. ابتدا وابستگی‌ها را نصب کنید:
+
+`npm ci`
+
+### دستورات کاربردی:
+
+- `npm run dev`: اجرای همزمان Vite و پنجره دسکتاپ الکترون ⚡
+- `npm run dev:web`: اجرای فقط نسخه وب در آدرس `http://127.0.0.1:5173/` 🌐
+- `npm run dev:electron`: باز کردن الکترون پس از آماده شدن سرور توسعه Vite 🖥️
+- `npm run build`: ساخت نسخه وب در پوشه `dist/` 📦
+- `npm run lint`: بررسی خطاهای کدهای وب و الکترون 🔍
+
+---
+
+## 📦 ساخت فایل نصاب ویندوز
+
+برای تولید فایل نصب نهایی ویندوز (`.exe`)، دستور زیر را در ویندوز اجرا کنید:
+
+`npm run dist:win`
+
+* فایل نصاب در پوشه `release/` با نام **RetroGlow Setup <version>.exe** ذخیره می‌شود.
+* این نصاب برنامه را برای کاربر فعلی نصب می‌کند و از اجرای خودکار هنگام راه‌اندازی ویندوز پشتیبانی می‌کند.
+
+---
+
+## 💡 رفتار در System Tray
+
+وقتی پنجره دسکتاپ را می‌بندید، برنامه به **System Tray** منتقل می‌شود.
+* با کلیک راست روی آیکون تری می‌توانید بین گزینه‌های **نمایش** و **خروج** یکی را انتخاب کنید.
+* اگر گزینه **اجرا در هنگام روشن شدن ویندوز** در تنظیمات فعال باشد، برنامه به صورت خودکار هنگام ورود به ویندوز در تری اجرا می‌شود.
