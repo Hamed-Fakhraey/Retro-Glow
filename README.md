@@ -1,4 +1,4 @@
-<img width="1792" height="1024" alt="z7zuIQE0pBd9Y_IYVGwHJSnib9A-udaRqdJzSB2px6Dpci9afQ" src="https://github.com/user-attachments/assets/632fbb24-b05b-461f-a16c-df2b1054ac9f" />
+
 
 
 # 🌟 RetroGlow (ایستگاه زمان)
@@ -10,7 +10,7 @@
 ## 📸 تصاویر محیط برنامه
 
 <p align="center">
-  <img src="retrogloW-readme-collage.png" alt="RetroGlow Showcase" width="100%">
+<img width="1792" height="1024" alt="z7zuIQE0pBd9Y_IYVGwHJSnib9A-udaRqdJzSB2px6Dpci9afQ" src="https://github.com/user-attachments/assets/632fbb24-b05b-461f-a16c-df2b1054ac9f" />
 </p>
 
 ---
